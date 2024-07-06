@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imad touzouz Crud systeme</title>
+    <style>
+        * {
+  padding: 0;
+  margin: 0;
+}
+
+.upbutton {
+  width: 100vw;
+  height: 40px;
+  background: #f8f3ea;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.upbutton #btn_stock, .upbutton #btn_factur, .upbutton #btn_user, .upbutton #btn_static {
+  height: 40px;
+  width: 25%;
+  outline: none;
+  border: none;
+  color: #0b1957;
+  border-left: 2px solid #0b1957;
+  font-size: 18px;
+  transition: all 0.4s ease;
+}
+.upbutton #btn_stock:hover, .upbutton #btn_factur:hover, .upbutton #btn_user:hover, .upbutton #btn_static:hover {
+  background: #0b1957;
+  color: #f8f3ea;
+}
+
+.active {
+  color: #f8f3ea !important;
+  background: #0b1957;
+}
+
+.body {
+  width: 100vw;
+  position: relative;
+  height: calc(100vh - 40px);
+  background: #f8f3ea;
+}
+.body #stock, .body #factur, .body #user, .body #static {
+  width: 100%;
+  height: 100%;
+  background: #0b1957;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.display {
+  display: none !important;
+}
+
+.title {
+  width: 100%;
+  height: 40px;
+  text-align: center;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding-top: 8px;
+}
+.title h1 {
+  color: #f8f3ea;
+  position: relative;
+  font-size: 18px;
+  width: 300px;
+}
+.title h1::after {
+  content: "";
+  background: #f8f3ea;
+  height: 3px;
+  width: 215px;
+  position: absolute;
+  left: 45px;
+  top: 20px;
+}
+
+.newproduct {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.newproduct input {
+  width: 24%;
+  height: 100%;
+  background: #f8f3ea;
+  border-radius: 8px;
+}
+.newproduct input::placeholder {
+  color: #0b1957;
+  padding-left: 16px;
+}
+.newproduct input:focus {
+  border: 2px solid green;
+  outline: none;
+}
+
+.btn_lg {
+  width: 100%;
+  height: 35px;
+  display: flex;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #f8f3ea;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4px;
+}
+.btn_lg #add_instock {
+  width: 90%;
+  height: 100%;
+  background: #0b1957;
+  color: #f8f3ea;
+  font-size: 18px;
+  border-radius: 8px;
+  transition: 0.4s all ease;
+  border: 2px solid #f8f3ea;
+}
+.btn_lg #add_instock:hover {
+  background: #f8f3ea;
+  color: #0b1957;
+}
+
+.onserch {
+  width: 100%;
+  height: 35px;
+  display: flex;
+  margin-top: 16px;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #f8f3ea;
+  padding-bottom: 16px;
+}
+.onserch #search {
+  width: 60%;
+  height: 100%;
+  outline: none;
+  border: none;
+  border-radius: 8px 0 0 8px;
+  background: #f8f3ea;
+}
+.onserch #search:focus {
+  border: 2px solid green;
+}
+.onserch #search::placeholder {
+  color: #0b1957;
+  padding-left: 16px;
+}
+.onserch #btn_search {
+  width: 50px;
+  height: 35px;
+  background: #f8f3ea;
+  border-radius: 0 8px 8px 0;
+  border-left: 2px solid #0b1957;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.onserch #btn_search svg {
+  width: 20px;
+  fill: #0b1957;
+}
+
+table {
+  width: 100%;
+  height: auto;
+}
+table tr {
+  height: 30px;
+}
+table tr th {
+  height: 30px;
+  background: #f8f3ea;
+  color: #0b1957;
+  border-radius: 4px;
+  border-bottom: 2px solid #f8f3ea;
+}
+
+tbody tr td {
+  text-align: center;
+  color: #f8f3ea;
+  border-bottom: 2px solid #f8f3ea;
+  border-left: 2px solid #f8f3ea;
+}
+tbody tr td button {
+  width: 80%;
+  height: 22px;
+  border-radius: 4px;
+}
+tbody tr td button:hover {
+  transform: scale(1.01);
+}
+tbody tr td #update {
+  background: green;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+tbody tr td #delete {
+  background: red;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-dell {
+  width: 100%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 8px;
+}
+.btn-dell #deleteall {
+  width: 50%;
+  height: 30px;
+  border-radius: 8px;
+  background: red;
+  color: #fff;
+  border: none;
+  transition: all 0.3s ease;
+}
+.btn-dell #deleteall:hover {
+  background: #fff;
+  border: 2px solid red;
+  color: red;
+}
+
+#stock {
+  z-index: 2;
+}
+    </style>
+</head>
+<body>
+   <div class="upbutton">
+    <button id="btn_stock">المخزن</button>
+    <button id="btn_factur">الفاتورة</button>
+    <button id="btn_user">الزبناء</button>
+    <button id="btn_static">الاحصائيات</button>
+   </div> 
+   <div class="body">
+    <section id="stock">
+    <div class="title">
+        <h1>نضام ادارة المخزن</h1>
+    </div>
+    <div class="newproduct">
+        <input type="text" id="categorie" placeholder="الصنف">
+        <input type="text" id="title" placeholder="السلعة">
+        <input type="number" id="count" placeholder="الكمية">
+        <input type="number" id="prix" placeholder="الثمن">
+    </div>
+    <div class="btn_lg">
+        <button id="add_instock">اضف الى المخزن</button>
+    </div>
+    <div class="onserch">
+       <input type="text"id="search" placeholder="البحث في المخزن...">
+       <div class="search" id="btn_search">
+        <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="512" height="512"><path d="M23.707,22.293l-5.969-5.969a10.016,10.016,0,1,0-1.414,1.414l5.969,5.969a1,1,0,0,0,1.414-1.414ZM10,18a8,8,0,1,1,8-8A8.009,8.009,0,0,1,10,18Z"/>
+        </svg>
+       </div> 
+    </div>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>الصنف</th>
+            <th>السلع</th>
+            <th>الكمية</th>
+            <th>الثمن</th>
+            <th>حذف</th>
+            <th>تحديث</th>
+        </tr>
+        <tbody id="tbody">  
+        </tbody>
+    </table>
+   <div class="btn-dell">
+    <button onclick="deleteall()" id="deleteall">
+        حدف المخزن كامل
+    </button>
+   </div>
+    </section>
+    <section id="factur"><h1>facture</h1></section>
+    <section id="user"><h1>user</h1></section>
+    <section id="static"><h1>static</h1></section>
+   </div>
+    <script>
+        var btn_stock   =document.getElementById('btn_stock'),
+    btn_factur  =document.getElementById('btn_factur'),
+    btn_user    =document.getElementById('btn_user'),
+    btn_static  =document.getElementById('btn_static'),
+    stock       =document.getElementById('stock'),
+    factur      =document.getElementById('factur'),
+    user        =document.getElementById('user'),
+    static      =document.getElementById('static');
+// *************upbutton confic*********************************************
+// change bg of button on click and z-index budy
+btn_stock.addEventListener('click',()=>{
+btn_stock.classList.add('active');
+btn_factur.classList.remove('active');
+btn_user.classList.remove('active');
+btn_static.classList.remove('active');
+stock.classList.remove('display');
+factur.classList.add('display');
+user.classList.add('display');
+static.classList.add('display');
+});
+btn_factur.addEventListener('click',()=>{
+btn_factur.classList.add('active');
+btn_user.classList.remove('active');
+btn_static.classList.remove('active');
+btn_stock.classList.remove('active');
+factur.classList.remove('display');
+user.classList.add('display');
+static.classList.add('display');
+stock.classList.add('display');
+});
+btn_user.addEventListener('click',()=>{
+btn_user.classList.add('active');
+btn_factur.classList.remove('active');
+btn_static.classList.remove('active');
+btn_stock.classList.remove('active');
+user.classList.remove('display');
+factur.classList.add('display');
+stock.classList.add('display');
+static.classList.add('display');
+});
+btn_static.addEventListener('click',()=>{
+btn_static.classList.add('active');
+btn_user.classList.remove('active');
+btn_factur.classList.remove('active');
+btn_stock.classList.remove('active');
+static.classList.remove('display');
+factur.classList.add('display');
+user.classList.add('display');
+stock.classList.add('display');
+});
+//**********************stock page confic*********************************
+var categorie  =document.getElementById('categorie'),
+    title      =document.getElementById('title'),
+    count      =document.getElementById('count'),
+    prix       =document.getElementById('prix'),
+    add_instock=document.getElementById('add_instock');
+    let data;
+    let counter;
+    if(localStorage.product !=null){
+        data=JSON.parse(localStorage.product)
+        counter=data.length;
+    }else{
+        data = [];
+        counter = 0;
+    };
+    //or
+    //localStorage.product !=null ? data=JSON.parse(localStorage.product):data = [];
+function addplus(){
+    counter++
+}
+add_instock.addEventListener('click',()=>{
+    let newPrudact={
+        categorie:categorie.value,
+        title: title.value,
+        count: count.value,
+        prix:  prix.value,
+        id: counter
+    }
+    data.push(newPrudact)
+    localStorage.setItem('product', JSON.stringify(data))
+    console.log(data);
+    clearData();
+    addplus();
+    show();
+});
+//clear input:
+function clearData(){
+categorie.value ='';
+title.value     ='';
+count.value     ='';
+prix.value      ='';
+}
+//Reade data:
+ var ten  = data.slice(-10);
+ function show(){
+     let table='';
+     for(let i=0; i < ten.length   ;i++){
+         table +=` 
+         <tr>
+         <td>${ten[i].id}</td>
+         <td>${ten[i].categorie}</td>
+         <td>${ten[i].title}</td>
+         <td>${ten[i].count}</td>
+         <td>${ten[i].prix}</td>
+         <td><button onclick="deleteProduct(${ten[i].id})" id="delete">حدف</button></td>
+         <td><button id="update">تحديث</button></td>
+         </tr>`
+    let tbody= document.getElementById('tbody');
+    tbody.innerHTML=table
+     }
+ };
+
+ //مسح منتوج واجد
+function deleteProduct(i){
+    data.splice(i,1);
+    localStorage.product = JSON.stringify(data)
+    show();
+}
+//حدف المخزن كامل
+let deall = document.getElementById('deleteall');
+if(counter >0){
+    deall.style.display='block'
+}else{
+    deall.style.display='none'
+}
+function deleteall(){
+    data = [];
+    localStorage.product=JSON.stringify(data)
+    show();
+};
+show();
+//**********************facture page confic*********************************
+//**********************user page confic*********************************
+//**********************static page confic*********************************
+    </script>
+</body>
+</html>

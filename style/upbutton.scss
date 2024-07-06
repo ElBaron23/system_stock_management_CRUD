@@ -1,0 +1,29 @@
+$light:#f8f3ea;
+$dark:#0b1957;
+
+.upbutton{
+    width: 100vw;
+    height: 40px;
+    background: $light;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    #btn_stock,#btn_factur,#btn_user,#btn_static{
+        height: 40px;
+        width: 25%;
+        outline: none;
+        border: none;
+        color: $dark;
+        font-size: 18px;
+        transition: all .4s ease;
+        &:hover{
+            background: $dark;
+            color: $light;
+        }
+    }
+}
+.active{
+    color: $light !important;
+    background: $dark;
+}
