@@ -1,3 +1,8 @@
+
+<!-- /* 
+            Code contributed by Imad Touzouz.
+            For more projects, visit: https://github.com/ElBaron23 
+        */ -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -97,7 +102,10 @@
 
         .newproduct input:last-child {
             margin-right: 0;
-        }
+        } /* 
+            Code contributed by Imad Touzouz.
+            For more projects, visit: https://github.com/ElBaron23 
+        */
 
         .newproduct input:focus {
             border-color: green;
@@ -149,7 +157,10 @@
     </style>
     <title>Imad Touzouz Crud System</title>
 </head>
-<body>
+ <body><!--< 
+    Code contributed by Imad Touzouz.
+    For more projects, visit: https://github.com/ElBaron23 
+*/ -->
     <div class="upbutton">
         <button id="btn_stock">Stock</button>
         <button id="btn_factur">Factur</button>
@@ -192,7 +203,10 @@
     border-bottom: 2px solid #ddd;
     margin-bottom: 20px;
 }
-
+ /* 
+            Code contributed by Imad Touzouz.
+            For more projects, visit: https://github.com/ElBaron23 
+        */
 .factur-header h1 {
     margin: 0;
     font-size: 24px;
@@ -238,7 +252,10 @@
 #factur_table th {
     font-size: 16px;
 }
-
+ /* 
+            Code contributed by Imad Touzouz.
+            For more projects, visit: https://github.com/ElBaron23 
+        */
 #factur_table td {
     font-size: 14px;
 }
@@ -320,7 +337,10 @@
     display: flex;
     align-items: center;
     margin-bottom: 20px;
-}
+} /* 
+            Code contributed by Imad Touzouz.
+            For more projects, visit: https://github.com/ElBaron23 
+        */
 
 .profile-pic {
     margin-right: 20px;
@@ -353,7 +373,10 @@
 .profile-actions {
     display: flex;
     gap: 20px;
-}
+} /* 
+            Code contributed by Imad Touzouz.
+            For more projects, visit: https://github.com/ElBaron23 
+        */
 
 .profile-actions button {
     background: #0b1957;
@@ -375,7 +398,7 @@
         <section id="user">
             <div class="profile-header">
                 <div class="profile-pic">
-                    <img src="https://via.placeholder.com/150" alt="Profile Picture">
+                    <img src="https://avatars.githubusercontent.com/u/135813426?v=4" alt="Profile Picture">
                 </div>
                 <div class="profile-info">
                     <h1>imad touzouz</h1>
@@ -409,7 +432,10 @@
 
 .btn_lg {
     margin-top: 20px;
-}
+} /* 
+            Code contributed by Imad Touzouz.
+            For more projects, visit: https://github.com/ElBaron23 
+        */
 
 .btn_lg button {
     width: 100%;
@@ -448,49 +474,76 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.21/jspdf.plugin.autotable.min.js"></script>
 
     <script>
+        // قم بالبحث عن جميع الأزرار في عنصر .upbutton وقم بإضافة مستمع حدث لكل زر
         document.querySelectorAll('.upbutton button').forEach(button => {
             button.addEventListener('click', () => {
+                // قم بإزالة الصفة 'active' من جميع الأزرار في عنصر .upbutton
                 document.querySelectorAll('.upbutton button').forEach(btn => btn.classList.remove('active'));
+                // قم بإزالة الصفة 'display' من جميع أقسام .body
                 document.querySelectorAll('.body > section').forEach(sec => sec.classList.remove('display'));
-
+    
+                // أضف الصفة 'active' للزر الذي تم النقر عليه
                 button.classList.add('active');
+                // أضف الصفة 'display' للقسم المرتبط بالزر الذي تم النقر عليه
                 document.getElementById(button.id.replace('btn_', '')).classList.add('display');
             });
         });
-
-        const categorie = document.getElementById('categorie');
-        const title = document.getElementById('title');
-        const count = document.getElementById('count');
-        const prix = document.getElementById('prix');
-        const add_instock = document.getElementById('add_instock');
-
+    
+        /* 
+            Code contributed by Imad Touzouz.
+            For more projects, visit: https://github.com/ElBaron23 
+        */
+    
+        // الحصول على العناصر من DOM
+        const categorie = document.getElementById('categorie'); // حقل إدخال الفئة
+        const title = document.getElementById('title'); // حقل إدخال العنوان
+        const count = document.getElementById('count'); // حقل إدخال الكمية
+        const prix = document.getElementById('prix'); // حقل إدخال السعر
+        const add_instock = document.getElementById('add_instock'); // زر إضافة إلى المخزون
+    
+        // استرجاع بيانات المنتجات من localStorage أو تهيئتها كمصفوفة فارغة إذا لم تكن موجودة
         let data = JSON.parse(localStorage.getItem('product')) || [];
-
+    
+        // إضافة مستمع حدث للزر 'add_instock' لمعالجة إضافة منتج جديد
         add_instock.addEventListener('click', () => {
+            // إنشاء كائن يمثل المنتج الجديد
             const newProduct = {
                 categorie: categorie.value,
                 title: title.value,
                 count: count.value,
                 prix: prix.value
             };
-
+    
+            // إضافة المنتج الجديد إلى المصفوفة
             data.push(newProduct);
+            // تخزين البيانات المحدثة في localStorage
             localStorage.setItem('product', JSON.stringify(data));
-
+    
+            // مسح القيم من حقول الإدخال
             categorie.value = '';
             title.value = '';
             count.value = '';
             prix.value = '';
-
+    
+            // تسجيل البيانات في وحدة التحكم
             console.log(data);
         });
-
-        const generateFacturBtn = document.getElementById('generate_factur');
-        const facturTableBody = document.getElementById('factur_table_body');
-
+    
+        /* 
+            Code contributed by Imad Touzouz.
+            For more projects, visit: https://github.com/ElBaron23 
+        */
+    
+        // الحصول على العناصر من DOM
+        const generateFacturBtn = document.getElementById('generate_factur'); // زر إنشاء الفاتورة
+        const facturTableBody = document.getElementById('factur_table_body'); // جسم جدول الفاتورة
+    
+        // دالة لتحديث جدول الفاتورة
         function updateFacturTable() {
+            // مسح محتويات جسم جدول الفاتورة
             facturTableBody.innerHTML = '';
-
+    
+            // إنشاء صفوف جديدة في جدول الفاتورة بناءً على البيانات
             data.forEach((product, index) => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
@@ -501,136 +554,159 @@
                     <td>${product.prix}</td>
                     <td>${(product.count * product.prix).toFixed(2)}</td>
                 `;
+                // إضافة الصف إلى جسم الجدول
                 facturTableBody.appendChild(row);
             });
         }
-
-        generateFacturBtn.addEventListener('click', updateFacturTable);
-        document.getElementById('download_pdf').addEventListener('click', () => {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-
-    // Get table data from localStorage
-    const products = JSON.parse(localStorage.getItem('product')) || [];
     
-    // Define table headers and add them to PDF
-    const headers = ['ID', 'Category', 'Title', 'Count', 'Price', 'Total'];
-    const rows = products.map((product, index) => [
-        index + 1,
-        product.categorie,
-        product.title,
-        product.count,
-        product.prix,
-        (product.count * product.prix).toFixed(2)
-    ]);
-
-    doc.setFontSize(12);
-    doc.text('Invoice Report', 14, 20);
-
-    // Add table to PDF
-    doc.autoTable({
-        head: [headers],
-        body: rows,
-        startY: 30,
-        theme: 'striped',
-        margin: { horizontal: 10 }
-    });
-
-    // Save the PDF
-    doc.save('invoice_report.pdf');
-});
-document.addEventListener('DOMContentLoaded', () => {
-    const ctx = document.getElementById('dataChart').getContext('2d');
-
-    function renderChart() {
-        const products = JSON.parse(localStorage.getItem('product')) || [];
-
-        // Prepare data for the chart
-        const labels = products.map(product => product.title);
-        const dataCounts = products.map(product => product.count);
-        const dataPrices = products.map(product => product.prix);
-        const dataTotals = products.map(product => (product.count * product.prix).toFixed(2));
-
-        // Create the chart
-        new Chart(ctx, {
-            type: 'bar', // You can change this to 'line', 'pie', etc.
-            data: {
-                labels: labels,
-                datasets: [
-                    {
-                        label: 'Count',
-                        data: dataCounts,
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'Price',
-                        data: dataPrices,
-                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                        borderColor: 'rgba(153, 102, 255, 1)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'Total',
-                        data: dataTotals,
-                        backgroundColor: 'rgba(255, 159, 64, 0.2)',
-                        borderColor: 'rgba(255, 159, 64, 1)',
-                        borderWidth: 1
+        // إضافة مستمع حدث لزر 'generate_factur' لتحديث جدول الفاتورة عند النقر
+        generateFacturBtn.addEventListener('click', updateFacturTable);
+    
+        // إضافة مستمع حدث لزر 'download_pdf' لتحميل ملف PDF عند النقر
+        document.getElementById('download_pdf').addEventListener('click', () => {
+            const { jsPDF } = window.jspdf; // الحصول على jsPDF من مكتبة jspdf
+            const doc = new jsPDF(); // إنشاء مستند PDF جديد
+    
+            // الحصول على بيانات المنتجات من localStorage
+            const products = JSON.parse(localStorage.getItem('product')) || [];
+    
+            // تحديد رؤوس الجدول وإضافتها إلى PDF
+            const headers = ['ID', 'Category', 'Title', 'Count', 'Price', 'Total'];
+            const rows = products.map((product, index) => [
+                index + 1,
+                product.categorie,
+                product.title,
+                product.count,
+                product.prix, /* 
+                    Code contributed by Imad Touzouz.
+                    For more projects, visit: https://github.com/ElBaron23 
+                */
+                (product.count * product.prix).toFixed(2)
+            ]);
+    
+            doc.setFontSize(12); // تحديد حجم الخط
+            doc.text('Invoice Report', 14, 20); // إضافة نص العنوان إلى PDF
+    
+            // إضافة الجدول إلى PDF
+            doc.autoTable({
+                head: [headers],
+                body: rows,
+                startY: 30,
+                theme: 'striped',
+                margin: { horizontal: 10 }
+            });
+    
+            // حفظ ملف PDF
+            doc.save('invoice_report.pdf');
+        });
+    
+        // إضافة مستمع حدث عند تحميل DOM بالكامل
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctx = document.getElementById('dataChart').getContext('2d'); // الحصول على سياق الرسم البياني من عنصر canvas
+    
+            /* 
+                Code contributed by Imad Touzouz.
+                For more projects, visit: https://github.com/ElBaron23 
+            */
+    
+            // دالة لرسم الرسم البياني
+            function renderChart() {
+                const products = JSON.parse(localStorage.getItem('product')) || [];
+    
+                // تحضير البيانات للرسم البياني
+                const labels = products.map(product => product.title);
+                const dataCounts = products.map(product => product.count);
+                const dataPrices = products.map(product => product.prix);
+                const dataTotals = products.map(product => (product.count * product.prix).toFixed(2));
+    
+                // إنشاء الرسم البياني
+                new Chart(ctx, {
+                    type: 'bar', // يمكن تغيير هذا إلى 'line'، 'pie'، إلخ.
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: 'Count',
+                                data: dataCounts,
+                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Price',
+                                data: dataPrices,
+                                backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                                borderColor: 'rgba(153, 102, 255, 1)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Total',
+                                data: dataTotals,
+                                backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                                borderColor: 'rgba(255, 159, 64, 1)',
+                                borderWidth: 1
+                            }
+                        ]
+                    }, /* 
+                        Code contributed by Imad Touzouz.
+                        For more projects, visit: https://github.com/ElBaron23 
+                    */
+                    options: {
+                        responsive: true,
+                        scales: {
+                            x: {
+                                beginAtZero: true
+                            },
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
                     }
-                ]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    x: {
-                        beginAtZero: true
-                    },
-                    y: {
-                        beginAtZero: true
-                    }
-                }
+                });
             }
+    
+            // استدعاء دالة رسم الرسم البياني عند تحميل الصفحة
+            renderChart();
+    
+            // إضافة مستمع حدث لزر 'download_static_pdf' لتحميل ملف PDF عند النقر
+            document.getElementById('download_static_pdf').addEventListener('click', () => {
+                const { jsPDF } = window.jspdf; // الحصول على jsPDF من مكتبة jspdf
+                const doc = new jsPDF(); // إنشاء مستند PDF جديد
+    
+                // الحصول على بيانات المنتجات من localStorage
+                const products = JSON.parse(localStorage.getItem('product')) || [];
+                
+                // تحديد رؤوس الجدول وإضافتها إلى PDF
+                const headers = ['ID', 'Category', 'Title', 'Count', 'Price', 'Total'];
+                const rows = products.map((product, index) => [
+                    index + 1,
+                    product.categorie,
+                    product.title,
+                    product.count,
+                    product.prix,
+                    (product.count * product.prix).toFixed(2)
+                ]);
+    
+                doc.setFontSize(12); // تحديد حجم الخط
+                doc.text('Static Data Report', 14, 20); // إضافة نص العنوان إلى PDF
+    
+                // إضافة الجدول إلى PDF
+                doc.autoTable({
+                    head: [headers],
+                    body: rows,
+                    startY: 30, /* 
+                        Code contributed by Imad Touzouz.
+                        For more projects, visit: https://github.com/ElBaron23 
+                    */
+                    theme: 'striped',
+                    margin: { horizontal: 10 }
+                });
+    
+                // حفظ ملف PDF
+                doc.save('static_data_report.pdf');
+            });
         });
-    }
-
-    renderChart();
-
-    document.getElementById('download_static_pdf').addEventListener('click', () => {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-
-        // Get table data from localStorage
-        const products = JSON.parse(localStorage.getItem('product')) || [];
-        
-        // Define table headers and add them to PDF
-        const headers = ['ID', 'Category', 'Title', 'Count', 'Price', 'Total'];
-        const rows = products.map((product, index) => [
-            index + 1,
-            product.categorie,
-            product.title,
-            product.count,
-            product.prix,
-            (product.count * product.prix).toFixed(2)
-        ]);
-
-        doc.setFontSize(12);
-        doc.text('Static Data Report', 14, 20);
-
-        // Add table to PDF
-        doc.autoTable({
-            head: [headers],
-            body: rows,
-            startY: 30,
-            theme: 'striped',
-            margin: { horizontal: 10 }
-        });
-
-        // Save the PDF
-        doc.save('static_data_report.pdf');
-    });
-});
-
     </script>
+    
 </body>
 </html>
