@@ -2,43 +2,491 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Imad touzouz Crud systeme</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8f3ea;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .upbutton {
+            display: flex;
+            width: 100%;
+            background: #f8f3ea;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .upbutton button {
+            flex: 1;
+            height: 40px;
+            border: none;
+            background: transparent;
+            color: #0b1957;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background 0.4s ease, color 0.4s ease;
+        }
+
+        .upbutton button:hover,
+        .upbutton button.active {
+            background: #0b1957;
+            color: #f8f3ea;
+        }
+
+        .body {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        section {
+            display: none;
+            flex: 1;
+            padding: 20px;
+            background: #0b1957;
+            color: #f8f3ea;
+        }
+
+        .display {
+            display: block;
+        }
+
+        .title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 40px;
+            margin-bottom: 20px;
+            font-size: 18px;
+            position: relative;
+        }
+
+        .title h1 {
+            margin: 0;
+            padding-top: 8px;
+        }
+
+        .newproduct,
+        .btn_lg,
+        .onserch {
+            margin-bottom: 20px;
+        }
+
+        .newproduct input {
+            width: 23%;
+            height: 40px;
+            margin-right: 1%;
+            padding-left: 16px;
+            border-radius: 8px;
+            border: 1px solid #0b1957;
+            background: #f8f3ea;
+            color: #0b1957;
+        }
+
+        .newproduct input:last-child {
+            margin-right: 0;
+        }
+
+        .newproduct input:focus {
+            border-color: green;
+        }
+
+        .btn_lg button {
+            width: 100%;
+            height: 35px;
+            background: #0b1957;
+            color: #f8f3ea;
+            border: 2px solid #f8f3ea;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background 0.4s ease, color 0.4s ease;
+        }
+
+        .btn_lg button:hover {
+            background: #f8f3ea;
+            color: #0b1957;
+        }
+
+        .onserch {
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #f8f3ea;
+        }
+
+        .onserch input {
+            width: calc(100% - 50px);
+            height: 35px;
+            border-radius: 8px 0 0 8px;
+            border: 1px solid #0b1957;
+            background: #f8f3ea;
+            padding-left: 16px;
+            color: #0b1957;
+        }
+
+        .onserch button {
+            width: 50px;
+            height: 35px;
+            background: #f8f3ea;
+            border: 1px solid #0b1957;
+            border-radius: 0 8px 8px 0;
+            cursor: pointer;
+        }
+
+       
+    </style>
+    <title>Imad Touzouz Crud System</title>
 </head>
 <body>
-   <div class="upbutton">
-    <button id="btn_stock">Stock</button>
-    <button id="btn_factur">Factur</button>
-    <button id="btn_user">User</button>
-    <button id="btn_static">Static</button>
-   </div> 
-   <div class="body">
-    <section id="stock">
-    <div class="title">
-        <h1>Stock management systeme</h1>
-    </div>
-    <div class="newproduct">
-        <input type="text" id="categorie" placeholder="categorie">
-        <input type="text" id="title" placeholder="title">
-        <input type="number" id="count" placeholder="count">
-        <input type="number" id="prix" placeholder="prix">
-    </div>
-    <div class="btn_lg">
-        <button id="add_instock">Add to stock</button>
-    </div>
-    <div class="onserch">
-       <input type="text"id="search" placeholder="search...">
-       <div class="search" id="btn_search"></div> 
-    </div>
+    <div class="upbutton">
+        <button id="btn_stock">Stock</button>
+        <button id="btn_factur">Factur</button>
+        <button id="btn_user">User</button>
+        <button id="btn_static">Static</button>
+    </div> 
+
+    <div class="body">
+        <section id="stock" class="display">
+            <div class="title">
+                <h1>Stock Management System</h1>
+            </div>
+            <div class="newproduct">
+                <input type="text" id="categorie" placeholder="Category">
+                <input type="text" id="title" placeholder="Title">
+                <input type="number" id="count" placeholder="Count">
+                <input type="number" id="prix" placeholder="Price">
+            </div>
+            <div class="btn_lg">
+                <button id="add_instock">Add to Stock</button>
+            </div>
+            <div class="onserch">
+                <input type="text" id="search" placeholder="Search...">
+                <button id="btn_search">🔍</button>
+            </div>
+        </section>
+        <style>
+            #factur {
+    padding: 20px;
+    background: #ffffff;
+    color: #0b1957;
+}
+
+.factur-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: #f5f5f5;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.factur-header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.factur-header button {
+    background: #0b1957;
+    color: #f8f3ea;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.4s ease, color 0.4s ease;
+}
+
+.factur-header button:hover {
+    background: #f8f3ea;
+    color: #0b1957;
+}
+
+.factur-content {
+    padding: 20px;
+}
+
+#factur_table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#factur_table thead {
+    background: #0b1957;
+    color: #f8f3ea;
+}
+
+#factur_table th,
+#factur_table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+#factur_table th {
+    font-size: 16px;
+}
+
+#factur_table td {
+    font-size: 14px;
+}
+
+#factur_table tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+#factur_table tr:hover {
+    background: #e0e0e0;
+}
+
+#factur_table td:last-child {
+    text-align: right;
+}
+
+#factur_table tfoot {
+    background: #f5f5f5;
+}
+
+#factur_table tfoot td {
+    font-weight: bold;
+}
+.factur-header button {
+    background: #0b1957;
+    color: #f8f3ea;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.4s ease, color 0.4s ease;
+    margin-left: 10px;
+}
+
+.factur-header button:hover {
+    background: #f8f3ea;
+    color: #0b1957;
+}
+
+
+        </style>
+       <section id="factur">
+        <div class="factur-header">
+            <h1>Invoice Management</h1>
+            <button id="generate_factur">Generate Invoice</button>
+            <button id="download_pdf">Download PDF</button>
+        </div>
+        <div class="factur-content">
+            <table id="factur_table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Category</th>
+                        <th>Title</th>
+                        <th>Count</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody id="factur_table_body">
+                    <!-- Invoice items will be inserted here -->
+                </tbody>
+            </table>
+        </div>
     </section>
-    <section id="factur"><h1>facture</h1></section>
-    <section id="user"><h1>user</h1></section>
-    <section id="static"><h1>static</h1></section>
-   </div>
+    
+        
+<style>
+    #user {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: #ffffff;
+    color: #0b1957;
+}
 
+.profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
 
+.profile-pic {
+    margin-right: 20px;
+}
 
-    <script src="script.js"></script>
+.profile-pic img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.profile-info {
+    flex: 1;
+}
+
+.profile-info h1 {
+    margin-bottom: 10px;
+}
+
+.profile-info p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+.profile-info i {
+    margin-right: 8px;
+}
+
+.profile-actions {
+    display: flex;
+    gap: 20px;
+}
+
+.profile-actions button {
+    background: #0b1957;
+    color: #f8f3ea;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.4s ease, color 0.4s ease;
+}
+
+.profile-actions button:hover {
+    background: #f8f3ea;
+    color: #0b1957;
+}
+
+</style>
+        <section id="user">
+            <div class="profile-header">
+                <div class="profile-pic">
+                    <img src="https://via.placeholder.com/150" alt="Profile Picture">
+                </div>
+                <div class="profile-info">
+                    <h1>imad touzouz</h1>
+                    <p><i class="fas fa-envelope"></i> imad @example.com</p>
+                    <p><i class="fas fa-phone"></i> +123 456 7890</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 maroc meknes</p>
+                </div>
+            </div>
+            <div class="profile-actions">
+                <button id="edit_profile">Edit Profile</button>
+                <button id="logout">Logout</button>
+            </div>
+        </section>
+        
+        <section id="static"><h1>Static Section</h1></section>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.21/jspdf.plugin.autotable.min.js"></script>
+
+    <script>
+        document.querySelectorAll('.upbutton button').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.upbutton button').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.body > section').forEach(sec => sec.classList.remove('display'));
+
+                button.classList.add('active');
+                document.getElementById(button.id.replace('btn_', '')).classList.add('display');
+            });
+        });
+
+        const categorie = document.getElementById('categorie');
+        const title = document.getElementById('title');
+        const count = document.getElementById('count');
+        const prix = document.getElementById('prix');
+        const add_instock = document.getElementById('add_instock');
+
+        let data = JSON.parse(localStorage.getItem('product')) || [];
+
+        add_instock.addEventListener('click', () => {
+            const newProduct = {
+                categorie: categorie.value,
+                title: title.value,
+                count: count.value,
+                prix: prix.value
+            };
+
+            data.push(newProduct);
+            localStorage.setItem('product', JSON.stringify(data));
+
+            categorie.value = '';
+            title.value = '';
+            count.value = '';
+            prix.value = '';
+
+            console.log(data);
+        });
+
+        const generateFacturBtn = document.getElementById('generate_factur');
+        const facturTableBody = document.getElementById('factur_table_body');
+
+        function updateFacturTable() {
+            facturTableBody.innerHTML = '';
+
+            data.forEach((product, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${product.categorie}</td>
+                    <td>${product.title}</td>
+                    <td>${product.count}</td>
+                    <td>${product.prix}</td>
+                    <td>${(product.count * product.prix).toFixed(2)}</td>
+                `;
+                facturTableBody.appendChild(row);
+            });
+        }
+
+        generateFacturBtn.addEventListener('click', updateFacturTable);
+        document.getElementById('download_pdf').addEventListener('click', () => {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    // Get table data from localStorage
+    const products = JSON.parse(localStorage.getItem('product')) || [];
+    
+    // Define table headers and add them to PDF
+    const headers = ['ID', 'Category', 'Title', 'Count', 'Price', 'Total'];
+    const rows = products.map((product, index) => [
+        index + 1,
+        product.categorie,
+        product.title,
+        product.count,
+        product.prix,
+        (product.count * product.prix).toFixed(2)
+    ]);
+
+    doc.setFontSize(12);
+    doc.text('Invoice Report', 14, 20);
+
+    // Add table to PDF
+    doc.autoTable({
+        head: [headers],
+        body: rows,
+        startY: 30,
+        theme: 'striped',
+        margin: { horizontal: 10 }
+    });
+
+    // Save the PDF
+    doc.save('invoice_report.pdf');
+});
+
+    </script>
 </body>
 </html>

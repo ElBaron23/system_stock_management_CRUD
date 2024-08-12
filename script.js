@@ -76,3 +76,32 @@ add_instock.addEventListener('click',()=>{
     //**********************facture page confic*********************************
 //**********************user page confic*********************************
 //**********************static page confic*********************************
+
+// ... (الكود الموجود سابقاً)
+
+const generateFacturBtn = document.getElementById('generate_factur');
+const facturTableBody = document.getElementById('factur_table_body');
+
+// دالة لإضافة فواتير إلى الجدول
+function updateFacturTable() {
+    const products = JSON.parse(localStorage.getItem('product')) || [];
+    facturTableBody.innerHTML = ''; // مسح محتويات الجدول
+
+    products.forEach((product, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${product.categorie}</td>
+            <td>${product.title}</td>
+            <td>${product.count}</td>
+            <td>${product.prix}</td>
+            <td>${(product.count * product.prix).toFixed(2)}</td>
+        `;
+        facturTableBody.appendChild(row);
+    });
+}
+
+// إضافة حدث لتوليد الفواتير
+generateFacturBtn.addEventListener('click', () => {
+    updateFacturTable();
+});
